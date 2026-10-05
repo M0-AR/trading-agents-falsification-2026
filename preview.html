@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trading Agents Under Honest Evaluation — Live Benchmark Report</title>
+<meta name="description" content="Clean-room falsification benchmark for multi-agent LLM trading. Live Yahoo data, E0-E4, Deflated Sharpe.">
+<style>
+:root{--bg:#0b1020;--card:#141b33;--ink:#e8ecf8;--mut:#9aa3c0;--acc:#6ea8fe;--grn:#3ddc84;--red:#ff6b6b;--amb:#ffc53d;--line:#243056}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#1b2a5e 0%,var(--bg) 55%) fixed,var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial}header{max-width:1080px;margin:0 auto;padding:56px 24px 8px}.badge{display:inline-block;padding:3px 10px;border:1px solid var(--line);border-radius:999px;color:var(--mut);font-size:12px;margin:2px 4px 2px 0;background:#111736}h1{font-size:clamp(30px,5vw,52px);line-height:1.08;margin:14px 0 8px}.sub{color:var(--mut);font-size:18px;max-width:820px}main{max-width:1080px;margin:0 auto;padding:8px 24px 80px}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.card{background:linear-gradient(180deg,#162046,#121a36);border:1px solid var(--line);border-radius:16px;padding:16px 18px}.kpi .card{text-align:center}.kpi b{font-size:26px;display:block}.kpi span{color:var(--mut);font-size:13px}h2{margin:40px 0 10px;font-size:24px}h3{margin:22px 0 8px}p,li{color:#cdd5ee}table{width:100%;border-collapse:collapse;margin:10px 0;background:#10173a;border-radius:12px;overflow:hidden}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}th{background:#1a2450;color:#fff}tr:last-child td{border-bottom:none}.neg{color:var(--red);font-weight:700}.pos{color:var(--grn);font-weight:700}.warn{color:var(--amb);font-weight:700}.verdict{border-left:6px solid var(--red);padding:14px 18px;background:#1a1230;border-radius:12px}.ok{border-left-color:var(--grn)}.two{display:grid;gap:14px;grid-template-columns:1fr 1fr}@media(max-width:760px){.two{grid-template-columns:1fr}}canvas{width:100%;height:220px;background:#0e1430;border:1px solid var(--line);border-radius:12px}code{background:#0e1430;padding:2px 6px;border-radius:6px;border:1px solid var(--line)}pre{background:#0e1430;border:1px solid var(--line);border-radius:12px;padding:14px;overflow:auto}pre code{border:none}a{color:var(--acc)}.foot{color:var(--mut);font-size:13px;margin-top:36px}.steps{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.steps div{background:#10173a;border:1px solid var(--line);border-radius:12px;padding:12px}
+</style>
+</head>
+<body>
+<header>
+<div><span class="badge">Python 3.11+</span><span class="badge">MIT</span><span class="badge">Tests: 3 passed</span><span class="badge">Yahoo Finance live</span><span class="badge">Docker ready</span></div>
+<h1>📈 Trading Agents Under Honest Evaluation</h1>
+<p class="sub"><b>Famous claim:</b> +26.62% on Apple in 3 months, Sharpe 8.21. <b>This page:</b> the live-data re-test you can re-run — with every number traceable to <code>results/*.json</code>. No API key. Beginner-friendly.</p>
+<div class="grid kpi">
+<div class="card"><b class="neg">Sharpe 8 → ~0–1</b><span>after costs + T+1 + deflation</span></div>
+<div class="card"><b class="warn">0 / 5 tickers beat B&amp;H</b><span>extended 2024–2025</span></div>
+<div class="card"><b class="warn">14–30% disagreement</b><span>same ticker+date, 10 seeds</span></div>
+<div class="card"><b class="neg">+15% → −1.2%</b><span>0bps → 50bps costs</span></div>
+</div>
+</header>
+<main>
+<h2>🎬 Demo</h2>
+<div class="two">
+<div class="card"><h3 style="margin-top:0">3-minute video</h3><p>Record <code>python experiments/run_all.py</code> → upload Unlisted to YouTube → replace this thumbnail link:</p><p><a href="https://www.youtube.com/watch?v=REPLACE_WITH_YOUR_VIDEO_ID">▶ Watch the demo (replace link)</a></p><p style="color:var(--mut);font-size:13px">Why a thumbnail link? GitHub strips raw &lt;video&gt; tags — clickable thumbnails + GIFs are the supported pattern.</p></div>
+<div class="card"><h3 style="margin-top:0">Run it now</h3><pre><code>pip install -r requirements.txt
+python -m pytest tests/ -q
+python experiments/run_all.py
+cat results/e1_extended.json</code></pre></div>
+</div>
+
+<h2>🌱 Beginner guide (60 seconds per idea)</h2>
+<div class="steps">
+<div><b>1. Prices</b><br>AAPL $183 → $181 → $170. Everything starts here.</div>
+<div><b>2. Backtest</b><br>"What if I followed my rule in the past?" Replay day by day.</div>
+<div><b>3. No peeking</b><br>Decide today with data ≤ today only. We enforce it in code.</div>
+<div><b>4. Indicators</b><br>SMA trend, RSI heat, MACD flip, Bollinger tunnel, ATR jumpiness.</div>
+<div><b>5. Only 3 numbers</b><br>Return (money), Sharpe (wobble-adjusted), Drawdown (worst fall).</div>
+<div><b>6. Costs kill</b><br>15 trades at 50bps: +15% → −1.2%.</div>
+<div><b>7. Count tries</b><br>Best-of-100 looks great by luck. Deflate it.</div>
+<div><b>8. One run ≠ truth</b><br>14–30% disagreement → need 7-of-10 agreement.</div>
+</div>
+
+<h2>🧪 E0 — Paper-window replication <span style="color:var(--mut)">2024-01-02 → 2024-03-29</span></h2>
+<table><tr><th>Ticker</th><th>Strategy CR</th><th>Buy &amp; Hold</th><th>Trades</th><th>SR</th><th>Deflated-PSR</th></tr>
+<tr><td>AAPL</td><td>0.00%</td><td class="neg">−7.51%</td><td>0</td><td>0.00</td><td>0.000</td></tr>
+<tr><td>GOOGL</td><td class="neg">−1.62%</td><td class="pos">+9.23%</td><td>4</td><td>−0.45</td><td>0.000</td></tr>
+<tr><td>AMZN</td><td class="pos">+9.12%</td><td class="pos">+20.31%</td><td>4</td><td>1.57</td><td>0.000</td></tr></table>
+<div class="verdict"><b>Verdict:</b> flat beats a falling market but trails rising ones; nothing near Sharpe 8; trial-count correction erases significance.</div>
+
+<h2>🧪 E1 — Extended 2024-01-02 → 2025-09-30</h2>
+<canvas id="c1"></canvas>
+<table><tr><th>Ticker</th><th>Strategy CR</th><th>Buy &amp; Hold</th><th>SR</th><th>MDD</th><th>Trades</th></tr>
+<tr><td>AAPL</td><td>13.29%</td><td class="pos">38.32%</td><td>0.41</td><td>−12.35%</td><td>15</td></tr>
+<tr><td>GOOGL</td><td>43.96%</td><td class="pos">77.16%</td><td>1.00</td><td>−11.47%</td><td>21</td></tr>
+<tr><td>AMZN</td><td>5.90%</td><td class="pos">46.45%</td><td>0.11</td><td>−13.42%</td><td>32</td></tr>
+<tr><td>MSFT</td><td>4.08%</td><td class="pos">41.48%</td><td>−0.04</td><td>−5.48%</td><td>12</td></tr>
+<tr><td>NVDA</td><td>123.39%</td><td class="pos">287.55%</td><td>2.07</td><td>−13.18%</td><td>12</td></tr></table>
+
+<h2>🧪 E2 — Same input, 10 seeds (MSFT)</h2>
+<p>Mean disagreement <b class="warn">0.14</b>, max <b class="warn">0.30</b> (2024-03-15: 7×OVERWEIGHT / 3×HOLD). Single-run ratings are not decisions — require ≥7/10 agreement.</p>
+<h2>🧪 E3 — Cost ladder (AAPL, 15 trades)</h2>
+<canvas id="c3"></canvas>
+<table><tr><th>Cost/step</th><th>CR</th><th>SR</th></tr>
+<tr><td>0bps</td><td class="pos">15.03%</td><td>0.48</td></tr>
+<tr><td>5bps</td><td>13.29%</td><td>0.41</td></tr>
+<tr><td>20bps</td><td>8.24%</td><td>0.21</td></tr>
+<tr><td>50bps</td><td class="neg">−1.20%</td><td>−0.20</td></tr></table>
+<h2>🧪 E4 — Regimes (AAPL)</h2>
+<table><tr><th>Regime</th><th>Strategy</th><th>Buy &amp; Hold</th><th>SR</th></tr>
+<tr><td>Bear 2022</td><td>−1.53%</td><td class="neg">−28.20%</td><td>−0.41</td></tr>
+<tr><td>Bull 2024</td><td>+9.70%</td><td class="pos">+35.56%</td><td>0.54</td></tr></table>
+<div class="verdict ok"><b>Pattern:</b> hides well in crashes, sleeps through rallies — the classic regime-misalignment signature. Vol-scaled sizing beats fixed sizing.</div>
+
+<h2>👥 Who is this for?</h2>
+<div class="steps">
+<div><b>🧑‍🎓 Students</b><br>Learn backtesting honestly; interview-ready in one evening.</div>
+<div><b>🔬 Researchers</b><br>Citable, re-runnable falsification artifact.</div>
+<div><b>🛠️ Developers</b><br>Copy the leak-proof loop (T+1, costs, deflation).</div>
+<div><b>📰 Educators</b><br>Screenshots + numbers for honest-AI stories.</div>
+</div>
+
+<h2>🌐 Share as a website (GitHub Pages)</h2>
+<p>Settings → Pages → <b>Deploy from a branch</b> → branch <code>main</code>, folder <code>/docs</code> → open <code>https://&lt;USER&gt;.github.io/&lt;REPO&gt;/preview.html</code>. This file is self-contained (inline CSS/JS, no build) so branch-deploy never breaks.</p>
+<p class="foot">Research artifact · MIT · Yahoo Finance data (their terms) · Not financial advice. Numbers = <code>results/*.json</code> from live run; re-run <code>python experiments/run_all.py</code> to confirm.</p>
+</main>
+<script>
+function bars(id,pairs,color){var c=document.getElementById(id),x=c.getContext('2d'),W=c.width=c.offsetWidth*2,H=c.height=440;var max=Math.max.apply(null,pairs.map(function(p){return p[1]}));x.scale(1,1);pairs.forEach(function(p,i){var bw=W/pairs.length*0.32,bx=W/pairs.length*(i+0.5)-bw/2,bh=(p[1]/max)*(H-70);x.fillStyle=i%2?color:'#3a4a8f';x.fillRect(bx,H-40-bh,bw,bh);x.fillStyle='#cdd5ee';x.font='20px system-ui';x.fillText(p[0],bx-6,H-12);x.fillText(p[1]+'%',bx-6,H-50-bh);});}
+bars('c1',[['AAPL-S',13.29],['AAPL-B',38.32],['GOOGL-S',43.96],['GOOGL-B',77.16],['AMZN-S',5.9],['AMZN-B',46.45],['MSFT-S',4.08],['MSFT-B',41.48],['NVDA-S',123.39],['NVDA-B',287.55]],'#3ddc84');
+bars('c3',[['0bps',15.03],['5bps',13.29],['20bps',8.24],['50bps',-1.2]],'#6ea8fe');
+</script>
+</body>
+</html>
