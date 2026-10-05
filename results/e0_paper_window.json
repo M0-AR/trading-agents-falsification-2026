@@ -1,0 +1,26 @@
+{
+  "AAPL": {
+    "CR": 0.0,
+    "SR": 0.0,
+    "MDD": 0.0,
+    "trades": 0,
+    "buy_hold": -7.51,
+    "deflated_psr": 0.0
+  },
+  "GOOGL": {
+    "CR": -1.62,
+    "SR": -0.45,
+    "MDD": -8.32,
+    "trades": 4,
+    "buy_hold": 9.23,
+    "deflated_psr": 0.0
+  },
+  "AMZN": {
+    "CR": 9.12,
+    "SR": 1.57,
+    "MDD": -4.03,
+    "trades": 4,
+    "buy_hold": 20.31,
+    "deflated_psr": 0.0
+  }
+}

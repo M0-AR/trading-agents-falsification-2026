@@ -1,0 +1,16 @@
+services:
+  benchmark:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./results:/app/results
+    environment:
+      - PYTHONUNBUFFERED=1
+  notebook:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "8888:8888"
+    command: bash -c "pip install -q jupyter yfinance pandas numpy matplotlib scipy pyyaml && jupyter notebook --ip=0.0.0.0 --allow-root --no-browser"

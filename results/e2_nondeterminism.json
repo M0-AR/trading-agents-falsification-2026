@@ -1,0 +1,99 @@
+{
+  "per_date": {
+    "2024-01-16": {
+      "ratings": [
+        "HOLD",
+        "OVERWEIGHT",
+        "HOLD",
+        "OVERWEIGHT",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD"
+      ],
+      "agreement": 0.8,
+      "counts": {
+        "HOLD": 8,
+        "OVERWEIGHT": 2
+      }
+    },
+    "2024-02-15": {
+      "ratings": [
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD"
+      ],
+      "agreement": 1.0,
+      "counts": {
+        "HOLD": 10
+      }
+    },
+    "2024-03-15": {
+      "ratings": [
+        "OVERWEIGHT",
+        "OVERWEIGHT",
+        "OVERWEIGHT",
+        "OVERWEIGHT",
+        "OVERWEIGHT",
+        "HOLD",
+        "OVERWEIGHT",
+        "OVERWEIGHT",
+        "HOLD",
+        "HOLD"
+      ],
+      "agreement": 0.7,
+      "counts": {
+        "OVERWEIGHT": 7,
+        "HOLD": 3
+      }
+    },
+    "2024-03-01": {
+      "ratings": [
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD"
+      ],
+      "agreement": 1.0,
+      "counts": {
+        "HOLD": 10
+      }
+    },
+    "2024-01-30": {
+      "ratings": [
+        "HOLD",
+        "OVERWEIGHT",
+        "HOLD",
+        "OVERWEIGHT",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD",
+        "HOLD"
+      ],
+      "agreement": 0.8,
+      "counts": {
+        "HOLD": 8,
+        "OVERWEIGHT": 2
+      }
+    }
+  },
+  "mean_disagreement": 0.14,
+  "max_disagreement": 0.3
+}
